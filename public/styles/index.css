@@ -1,0 +1,76 @@
+/* styles.css */
+
+/* Navbar styles */
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    overflow: hidden;
+  }
+  
+  .navbar li {
+    float: left;
+  }
+  
+  .navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .navbar li a:hover {
+    background-color: #111;
+  }
+  
+  .navbar li.user {
+    color: white;
+    padding: 14px 16px;
+  }
+  
+  .navbar li.logout {
+    float: right;
+  }
+  
+  /* Content styles */
+  .content {
+    min-height: calc(100vh - 150px); /* Adjust the value to your liking */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .start-chat {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .start-chat i {
+    margin-right: 5px;
+  }
+  
+  /* Footer styles */
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Animation styles */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  button {
+    animation: fade-in 1s ease-in-out;
+  }
+  
