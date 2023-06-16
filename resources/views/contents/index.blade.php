@@ -9,17 +9,21 @@
   <header>
     <nav>
       <ul class="navbar">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li class="user">John Doe</li>
-        <li class="logout"><a href="#">Logout</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/">About</a></li>
+        @if(Auth::check())
+          <li class="user-name">Welcome, {{ Auth::user()->name }}</li>
+        @else
+          <li class="user-name">User not logged in.</li>
+        @endif
+        <li class="logout"><a href="{{ route('logout')}}">Logout</a></li>
       </ul>
     </nav>
   </header>
 
   <main class="content">
     <section>
-      <button class="start-chat"><i class="fas fa-comments"></i> Start a Chat</button>
+      <button class="start-chat"><i class="fas fa-comments"></i> <a href="/dashboard">start a chat</a></button>
     </section>
   </main>
 

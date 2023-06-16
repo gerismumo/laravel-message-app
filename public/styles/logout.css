@@ -20,25 +20,9 @@
     padding: 14px 16px;
     text-decoration: none;
   }
-  .user-name{
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
   
   .navbar li a:hover {
     background-color: #111;
-  }
-  
-  .navbar li.user {
-    color: white;
-    padding: 14px 16px;
-  }
-  
-  .navbar li.logout {
-    float: right;
   }
   
   /* Content styles */
@@ -49,7 +33,18 @@
     justify-content: center;
   }
   
-  .start-chat {
+  form {
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .logout-button {
     padding: 10px 20px;
     background-color: #333;
     color: white;
@@ -59,30 +54,11 @@
     cursor: pointer;
   }
   
-  .start-chat i {
-    margin-right: 5px;
-  }
-  .start-chat a{
-    text-decoration:none;
-    color:white;
-    font-size:18px;
-  }
-  
   /* Footer styles */
   footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 20px;
-  }
-  
-  /* Animation styles */
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  button {
-    animation: fade-in 1s ease-in-out;
   }
   

@@ -1,0 +1,148 @@
+/* styles/dashboard.css */
+
+/* Reset default browser styles */
+body, ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Set default font and background color */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  /* Message container */
+  .message-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  /* User selection */
+  .user-selection {
+    flex: 1;
+    max-width: 300px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-selection h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .user-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .user-list li {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  
+  .user-list li:hover {
+    background-color: #ebebeb;
+  }
+  
+  #user-search {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Message area */
+  .message-area {
+    flex: 3;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 10px;
+    margin-left: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .home-tab,
+  .back-tab {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .dialog-container {
+    height: 400px;
+    overflow-y: auto;
+    padding-right: 10px; /* Add space for scrollbar */
+  }
+  
+  .messages {
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .message p {
+    margin: 0;
+  }
+  
+  .message p strong {
+    font-weight: bold;
+  }
+  
+  .like-button,
+  .delete-button {
+    border: none;
+    background-color: transparent;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .notification-area {
+    margin-top: 10px;
+  }
+  
+  .notification {
+    padding: 5px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  /* styles/styles.css */
+  
+  /* Apply box-sizing: border-box to all elements */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Set a maximum width for the entire page */
+  body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  

@@ -15,7 +15,7 @@
           <a href="javascript:void(0)" class="dropbtn">Login</a>
           <div class="dropdown-content">
             <a href="{{ route('login')}}">User Login</a>
-            <a href="#">Admin Login</a>
+            <a href="{{ route('admin')}}">Admin Login</a>
           </div>
         </li>
       </ul>
