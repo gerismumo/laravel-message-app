@@ -41,7 +41,13 @@ Route::get('/admin',[AdminController::class, 'index']) -> name('admin');
 Route::post('/admin',[AdminController::class, 'store']);
 
 //dashboard page
-Route::get('/dashboard',[DashboardController::class, 'index']) -> name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+// Route for sending a message
+Route::post('/messages/send', [DashboardController::class, 'sendMessage'])->middleware('auth')->name('messages.send');
+
+// Route for deleting a message
+Route::delete('/messages/delete/{messageId}', [DashboardController::class, 'deleteMessage'])->middleware('auth')->name('messages.delete');
 
 Route::get('/', function () {
     return view('contents.welcome');

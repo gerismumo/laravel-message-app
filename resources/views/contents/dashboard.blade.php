@@ -6,44 +6,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="styles/dashboard.css" rel="stylesheet">
-  {{-- <link href="styles/styles.css" rel="stylesheet"> --}}
+  <link href="styles/styles.css" rel="stylesheet">
+  @csrf
   <title>My website</title>
 </head>
 
 <body>
-  <div class="message-container">
-    <div class="user-selection">
-      <h2>Users</h2>
-      <input type="text" id="user-search" placeholder="Search users">
-      <ul class="user-list">
-        {{-- <!-- User list items -->
-        {{-- @foreach($users as $user)
-        <li class="user" data-user-id="{{ $user->id }}">
-          {{ $user->name }}
-          {{-- @if(Auth::user()->isAdmin()) 
-          <input type="button" class="delete-button" value="delete">
-          {{-- @endif 
-        </li>
-        @endforeach --}}
-      </ul>
+  <div class="dashboard-container">
+    <div class="profile-area">
+      <!-- Display user profile here -->
+      <h2>{{ Auth::user()->name }}</h2>
+      <p>Email: {{ Auth::user()->email }}</p>
+      <a href="{{ route('logout') }}" class="logout-button">Logout</a>
     </div>
-    <div class="message-area">
-      <div class="message-header">
-        <a href="/" class="home-tab">Home</a>
-        <a href="{{ route('index') }}" class="back-tab">Back</a>
-        <h2 class="receiver-name"></h2>
+    <div class="message-container">
+      <div class="user-selection">
+        <h2>Users</h2>
+        <input type="text" id="user-search" placeholder="Search users">
+        <ul class="user-list">
+          <!-- Display list of registered users here -->
+          @foreach($users as $user)
+            @if($user->id !== Auth::user()->id)
+              <li class="user" data-user-id="{{ $user->id }}">
+                {{ $user->name }}
+              </li>
+            @endif
+          @endforeach
+        </ul>
       </div>
-      <div class="dialog-container">
-        <div class="messages">
-          <!-- Display messages here -->
+      <div class="message-area">
+        <div class="message-header">
+          <a href="/" class="home-tab">Home</a>
+          <h2 class="receiver-name"></h2>
         </div>
-        <div class="message-input">
-          <input type="text" placeholder="Type your message" class="message-text">
-          <button class="send-button">Send</button>
+        <div class="dialog-container">
+          <div class="messages">
+            <!-- Display messages here -->
+          </div>
+          <div class="message-input">
+            <input type="text" placeholder="Type your message" class="message-text">
+            <button class="send-button">Send</button>
+          </div>
         </div>
-      </div>
-      <div class="notification-area">
-        <!-- Display notifications here -->
+        <div class="notification-area">
+          <!-- Display notifications here -->
+        </div>
       </div>
     </div>
   </div>
@@ -73,7 +80,7 @@
           // { id: 2, sender: 'User 2', text: 'Hi', liked: false },
           // { id: 3, sender: 'User 1', text: 'How are you?', liked: false }
         ];
-        displayMessages(messages, receiverName);
+        displayMessages(messages, receiverName, receiverId);
 
         // Handle sending a new message
         sendButton.addEventListener('click', () => {
@@ -81,20 +88,44 @@
           if (text !== '') {
             const senderName = getSenderName(); // Get the sender name
 
-            // Simulating the creation of a new message for demonstration purposes
-            const newMessage = {
-              id: Math.floor(Math.random() * 1000) + 1,
-              sender: senderName,
-              text: text,
-              liked: false
-            };
-            displayMessage(newMessage);
+            // Send the message data to the server
+            fetch('/messages/send', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add Laravel CSRF token
+              },
+              body: JSON.stringify({
+                sender_id: '{{ Auth::user()->id }}',
+                receiver_id: receiverId,
+                message: text
+              })
+            })
+            .then(response => response.json())
+            .then(result => {
+              if (result.success) {
+                // Message sent successfully
+                const newMessage = {
+                  id: result.message.id,
+                  sender: senderName,
+                  text: text,
+                  liked: false
+                };
+                displayMessage(newMessage);
+                messageInput.value = '';
 
-            // Clear message input
-            messageInput.value = '';
-
-            // Show notification
-            showNotification(`Message sent to ${receiverName}`, 5000);
+                // Show notification
+                showNotification(`Message sent to ${receiverName}`, 5000);
+              } else {
+                // Error sending the message
+                console.error(result.message);
+                showNotification('Error sending the message. Please try again later.', 5000);
+              }
+            })
+            .catch(error => {
+              console.error(error);
+              showNotification('Error sending the message. Please try again later.', 5000);
+            });
           }
         });
       }
@@ -137,11 +168,11 @@
     // Get the sender name
     function getSenderName() {
       // Simulating the sender name for demonstration purposes
-      return 'Admin';
+      return '{{ Auth::user()->name }}';
     }
 
     // Display messages in the dialog
-    function displayMessages(messages, receiverName) {
+    function displayMessages(messages, receiverName, receiverId) {
       messagesContainer.innerHTML = '';
       messages.forEach(message => {
         displayMessage(message);
@@ -149,6 +180,7 @@
       // Update receiver name in the dialog header
       const receiverNameHeader = document.querySelector('.receiver-name');
       receiverNameHeader.textContent = receiverName;
+      receiverNameHeader.dataset.receiverId = receiverId;
     }
 
     // Display a single message
@@ -181,11 +213,38 @@
       // Handle delete button click
       const deleteButton = messageElement.querySelector('.delete-button');
       deleteButton.addEventListener('click', () => {
+        deleteMessage(message.id);
         messageElement.remove();
-        // Handle deleting the message
       });
 
       messagesContainer.appendChild(messageElement);
+    }
+
+    // Delete message function
+    function deleteMessage(messageId) {
+      // Send the delete request to the server
+      fetch(`/messages/delete/${messageId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}' // Add Laravel CSRF token
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          // Message deleted successfully
+          showNotification('Message deleted', 5000);
+        } else {
+          // Error deleting the message
+          console.error(result.message);
+          showNotification('Error deleting the message. Please try again later.', 5000);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        showNotification('Error deleting the message. Please try again later.', 5000);
+      });
     }
 
     // Show notification in the notification area
