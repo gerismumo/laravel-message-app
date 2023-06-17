@@ -10,7 +10,8 @@ const receiverIdInput = document.querySelector('#receiver-id');
 
 // Get the sender name from the dataset of receiverNameElement
 // const senderName =  `{{ Auth::user()->name }}`;
-var senderName = document.querySelector('.log-user').textContent;
+// var senderName = document.querySelector('.log-user').textContent;
+var senderName ="";
 
 
 // Handle user selection
@@ -47,7 +48,7 @@ function displayMessage(message) {
   const senderName = message.senderName;
 
   messageElement.innerHTML = `
-    <p><strong>${senderName}:</strong> ${message.text}</p>
+    <p><strong>${senderName}</strong> ${message.text}</p>
     <button class="like-button">Like</button>
     <button class="delete-button">Delete</button>
   `;
