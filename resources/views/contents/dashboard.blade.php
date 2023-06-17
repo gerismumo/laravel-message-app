@@ -40,6 +40,7 @@
       <div class="message-area">
         <div class="message-header">
           <a href="/" class="home-tab">Home</a>
+          <a href="/index" class="back-tab">Back</a>
           <h2 class="receiver-name"></h2>
         
         </div>

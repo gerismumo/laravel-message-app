@@ -114,6 +114,13 @@ body {
   font-size: 14px;
   transition: color 0.3s ease;
 }
+.back-tab {
+  order: 0; /* Added */
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
 
 .receiver-name {
   order: 1; /* Added */
