@@ -8,8 +8,11 @@ const sendButton = document.querySelector('.send-button');
 const receiverNameElement = document.querySelector('.receiver-name');
 const receiverIdInput = document.querySelector('#receiver-id');
 
-// '{{ $senderName }}'
-const senderName = "{{ Auth::user()->name }}";
+// Get the sender name from the dataset of receiverNameElement
+// const senderName =  `{{ Auth::user()->name }}`;
+var senderName = document.querySelector('.log-user').textContent;
+
+
 // Handle user selection
 userList.addEventListener('click', event => {
   const selectedUser = event.target;
@@ -41,7 +44,7 @@ function displayMessage(message) {
   const messageElement = document.createElement('div');
   messageElement.classList.add('message');
 
-  const senderName = message.sender;
+  const senderName = message.senderName;
 
   messageElement.innerHTML = `
     <p><strong>${senderName}:</strong> ${message.text}</p>
@@ -139,7 +142,6 @@ messageForm.addEventListener('submit', event => {
 
   const formData = new FormData(messageForm);
   const receiverName = receiverNameElement.textContent; // Store the receiver name
-  const senderName = receiverNameElement.dataset.senderName;
 
   // Send the message via AJAX request
   fetch(messageForm.action, {
@@ -151,7 +153,7 @@ messageForm.addEventListener('submit', event => {
       if (data.success) {
         // Display success message or update the messages list
         const message = {
-          sender: senderName,
+          senderName: senderName,
           text: formData.get('message'),
           liked: false
         };

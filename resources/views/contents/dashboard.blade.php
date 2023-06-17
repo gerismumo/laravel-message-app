@@ -15,7 +15,7 @@
   <div class="dashboard-container">
     <div class="profile-area">
       <!-- Display user profile here -->
-      <h2>{{ Auth::user()->name }}</h2>
+      <h2 class="log-user">{{ Auth::user()->name }}</h2>
       <p>Email: {{ Auth::user()->email }}</p>
       <form action="{{ route('logout') }}" method="POST">
         @csrf
@@ -41,6 +41,7 @@
         <div class="message-header">
           <a href="/" class="home-tab">Home</a>
           <h2 class="receiver-name"></h2>
+        
         </div>
         <div class="dialog-container">
           <div class="messages">
@@ -63,6 +64,8 @@
     </div>
   </div>
   <script src="JS/dashboard.js"></script>
+  
+  
 </body>
 
 </html>

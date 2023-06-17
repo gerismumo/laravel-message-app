@@ -16,17 +16,22 @@ class DashboardController extends Controller
         // Get the authenticated user
         $user = auth()->user();
 
+            // Get the sender's name
+        // $senderName = $user->name;
+        $senderName = Auth::user()->name;
+
         // Get all registered users except the authenticated user
         $users = User::where('id', '!=', $user->id)->get();
 
         // Simulating the messages for demonstration purposes
         $messages = [];
-
+       
         return view('contents.dashboard', [
             'user' => $user,
             'users' => $users,
-            'messages' => $messages
-        ]) -> with('senderName', Auth::user()->name);
+            'messages' => $messages,
+            'senderName' => $senderName,
+        ]);
     }
 
     public function sendMessage(Request $request)
@@ -48,6 +53,7 @@ class DashboardController extends Controller
     // Fetch the sender's name
     $sender = User::find($request->input('sender_id'));
     $senderName = $sender->name;
+    // $senderName = Auth::user()->name;
 
     // Fetch all messages between the sender and receiver
     $messages = UserMessage::where(function ($query) use ($request) {
