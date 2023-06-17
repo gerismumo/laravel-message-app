@@ -42,12 +42,15 @@ Route::post('/admin',[AdminController::class, 'store']);
 
 //dashboard page
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-
+// /messages/send
 // Route for sending a message
-Route::post('/messages/send', [DashboardController::class, 'sendMessage'])->middleware('auth')->name('messages.send');
+Route::post('/dashboard', [DashboardController::class, 'sendMessage'])->middleware('auth')->name('dashboard');
 
 // Route for deleting a message
 Route::delete('/messages/delete/{messageId}', [DashboardController::class, 'deleteMessage'])->middleware('auth')->name('messages.delete');
+
+Route::get('/messages/fetch/{userId}', [DashboardController::class, 'fetchMessages'])->name('messages.fetch');
+
 
 Route::get('/', function () {
     return view('contents.welcome');
