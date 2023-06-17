@@ -48,24 +48,24 @@ function displayMessage(message) {
   const senderName = message.senderName;
 
   messageElement.innerHTML = `
-    <p><strong>${senderName}</strong> ${message.text}</p>
-    <button class="like-button">Like</button>
-    <button class="delete-button">Delete</button>
-  `;
+  <p><strong>${senderName}</strong> ${message.text}</p>
+  <button class="like-button">Like</button>
+  <button class="delete-button">Delete</button>
+`;
 
-  // Handle like button click
-  const likeButton = messageElement.querySelector('.like-button');
-  likeButton.addEventListener('click', () => {
-    if (!message.liked) {
-      likeButton.textContent = 'Unlike';
-      message.liked = true;
-      // Handle liking the message
-    } else {
-      likeButton.textContent = 'Like';
-      message.liked = false;
-      // Handle unliking the message
-    }
-  });
+// Handle like button click
+const likeButton = messageElement.querySelector('.like-button');
+likeButton.addEventListener('click', () => {
+  if (!message.liked) {
+    likeButton.textContent = 'Unlike';
+    message.liked = true;
+    // Handle liking the message
+  } else {
+    likeButton.textContent = 'Like';
+    message.liked = false;
+    // Handle unliking the message
+  }
+});
 
   // Handle delete button click
   const deleteButton = messageElement.querySelector('.delete-button');
