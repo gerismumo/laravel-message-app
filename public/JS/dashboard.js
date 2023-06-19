@@ -95,12 +95,12 @@ function deleteMessage(messageId) {
       } else {
         // Error deleting the message
         console.error(result.message);
-        showNotification('Error deleting the message. Please try again later.', 5000);
+        showNotification('Error deleting the message. Please try again later.', 3000);
       }
     })
     .catch(error => {
       console.error(error);
-      showNotification('Error deleting the message. Please try again later.', 5000);
+      showNotification('Error deleting the message. Please try again later.', 3000);
     });
 }
 
@@ -175,4 +175,18 @@ messageForm.addEventListener('submit', event => {
       console.error(error);
       showNotification('Error sending the message. Please try again later.', 5000);
     });
+});
+
+ // Handle user search
+ userSearch.addEventListener('input', () => {
+  const searchTerm = userSearch.value.toLowerCase();
+  const users = document.querySelectorAll('.user-list li');
+  users.forEach(user => {
+    const userName = user.textContent.toLowerCase();
+    if (userName.includes(searchTerm)) {
+      user.style.display = 'block';
+    } else {
+      user.style.display = 'none';
+    }
+  });
 });
